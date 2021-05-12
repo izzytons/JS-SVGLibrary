@@ -1,4 +1,4 @@
-class SVGelement {
+class SVGElement {
   constructor(type) {
     this.type = type;
     this.namespace = "http://www.w3.org/2000/svg";
@@ -29,12 +29,12 @@ class SVGelement {
 
 class Sight {
   constructor(selector, width, height) {
-    this.svg = new SVGelement("svg")
+    this.svg = new SVGElement("svg")
       .attr(["viewbox", "0 0 ${width} ${height}"])
       .append(selector);
   }
 
   draw(type, attrs) {
-    return new SVGelement(type).attr(attrs).append(this.svg);
+    return new SVGElement(type).attr(attrs).append(this.svg);
   }
 }
