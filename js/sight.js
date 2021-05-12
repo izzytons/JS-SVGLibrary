@@ -9,7 +9,7 @@ class SVGElement {
 
   attr(attrs) {
     for (const [key, value] of Object.entries(attrs)) {
-      this.node.setAttributeNS(this.namespace, this.type, value);
+      this.node.setAttributeNS(null, key, value);
     }
     return this;
   }
