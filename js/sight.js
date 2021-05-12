@@ -1,4 +1,4 @@
-class SVGElement {
+class SVGelement {
   constructor(type) {
     this.type = type;
     this.namespace = "http://www.w3.org/2000/svg";
@@ -8,28 +8,33 @@ class SVGElement {
   }
 
   attr(attrs) {
-    for ((key, value) of Object.entries(attrs)) {
-      this.node.setAttributeNS(key, value);
+    for (const [key, value] of Object.entries(attrs)) {
+      this.node.setAttributeNS(this.namespace, this.type, value);
     }
     return this;
   }
 
   append(element) {
-    if (typeof element == "string") {
-      const parent = document.querySelector(element);
-    } else {
-      const parent = element.node;
-    }
+    const parent =
+      typeof element == "string"
+        ? document.querySelector(element)
+        : element.node;
+
+    //append this node to parent
+    parent.appendChild(this.node);
+
     return this;
   }
 }
 
 class Sight {
   constructor(selector, width, height) {
-    this.svg = new SVGElement("svg").attr(viewbox);
+    this.svg = new SVGelement("svg")
+      .attr(["viewbox", "0 0 ${width} ${height}"])
+      .append(selector);
   }
 
   draw(type, attrs) {
-    return new SVGElement(type).attr(attrs).append(svg);
+    return new SVGelement(type).attr(attrs).append(this.svg);
   }
 }
